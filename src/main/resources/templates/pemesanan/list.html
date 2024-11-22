@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{pemesanan.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{pemesanan.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/pemesanans/add}" class="btn btn-primary ms-2">[[#{pemesanan.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${pemesanans.empty}">[[#{pemesanan.list.empty}]]</div>
+            <div th:if="${!pemesanans.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{pemesanan.id.label}]]</th>
+                            <th scope="col">[[#{pemesanan.ticketCode.label}]]</th>
+                            <th scope="col">[[#{pemesanan.namaCustomer.label}]]</th>
+                            <th scope="col">[[#{pemesanan.asal.label}]]</th>
+                            <th scope="col">[[#{pemesanan.tujuan.label}]]</th>
+                            <th scope="col">[[#{pemesanan.tglKeberangkatan.label}]]</th>
+                            <th scope="col">[[#{pemesanan.noTempatduduk.label}]]</th>
+                            <th scope="col">[[#{pemesanan.statusPembayaran.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="pemesanan : ${pemesanans}">
+                            <td>[[${pemesanan.id}]]</td>
+                            <td>[[${pemesanan.ticketCode}]]</td>
+                            <td>[[${pemesanan.namaCustomer}]]</td>
+                            <td>[[${pemesanan.asal}]]</td>
+                            <td>[[${pemesanan.tujuan}]]</td>
+                            <td>[[${pemesanan.tglKeberangkatan}]]</td>
+                            <td>[[${pemesanan.noTempatduduk}]]</td>
+                            <td>[[${pemesanan.statusPembayaran}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/pemesanans/edit/{id}(id=${pemesanan.id})}" class="btn btn-sm btn-secondary">[[#{pemesanan.list.edit}]]</a>
+                                    <form th:action="@{/pemesanans/delete/{id}(id=${pemesanan.id})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{pemesanan.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

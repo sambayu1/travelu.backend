@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{pemesanan.add.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{pemesanan.add.headline}]]</h1>
+                <div>
+                    <a th:href="@{/pemesanans}" class="btn btn-secondary">[[#{pemesanan.add.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('pemesanan')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='ticketCode', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='namaCustomer', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='diskon', type='textarea')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='asal', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='tujuan', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='tglKeberangkatan', required=true, inputClass='js-datepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='noTempatduduk', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='statusPembayaran', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='pelangganId', required=true, type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='pembayaranId', required=true, type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='invoicePembayaranId', required=true, type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='listDiskon', type='multiselect')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='roleAdmin', type='multiselect')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='tanggalJadwal', required=true, type='select')}" />
+                <input type="submit" th:value="#{pemesanan.add.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>
