@@ -37,30 +37,30 @@ public class InvoicePembayaranResource {
 
     @GetMapping("/{noInvoice}")
     public ResponseEntity<InvoicePembayaranDTO> getInvoicePembayaran(
-            @PathVariable(name = "noInvoice") final Long noInvoice) {
+            @PathVariable(name = "noInvoice") final String noInvoice) {
         return ResponseEntity.ok(invoicePembayaranService.get(noInvoice));
     }
 
     @PostMapping
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<Long> createInvoicePembayaran(
+    public ResponseEntity<String> createInvoicePembayaran(
             @RequestBody @Valid final InvoicePembayaranDTO invoicePembayaranDTO) {
-        final Long createdNoInvoice = invoicePembayaranService.create(invoicePembayaranDTO);
-        return new ResponseEntity<>(createdNoInvoice, HttpStatus.CREATED);
+        final String createdNoInvoice = invoicePembayaranService.create(invoicePembayaranDTO);
+        return new ResponseEntity<>('"' + createdNoInvoice + '"', HttpStatus.CREATED);
     }
 
     @PutMapping("/{noInvoice}")
-    public ResponseEntity<Long> updateInvoicePembayaran(
-            @PathVariable(name = "noInvoice") final Long noInvoice,
+    public ResponseEntity<String> updateInvoicePembayaran(
+            @PathVariable(name = "noInvoice") final String noInvoice,
             @RequestBody @Valid final InvoicePembayaranDTO invoicePembayaranDTO) {
         invoicePembayaranService.update(noInvoice, invoicePembayaranDTO);
-        return ResponseEntity.ok(noInvoice);
+        return ResponseEntity.ok('"' + noInvoice + '"');
     }
 
     @DeleteMapping("/{noInvoice}")
     @ApiResponse(responseCode = "204")
     public ResponseEntity<Void> deleteInvoicePembayaran(
-            @PathVariable(name = "noInvoice") final Long noInvoice) {
+            @PathVariable(name = "noInvoice") final String noInvoice) {
         final ReferencedWarning referencedWarning = invoicePembayaranService.getReferencedWarning(noInvoice);
         if (referencedWarning != null) {
             throw new ReferencedException(referencedWarning);

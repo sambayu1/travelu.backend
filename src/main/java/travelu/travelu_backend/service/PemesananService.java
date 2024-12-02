@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import travelu.travelu_backend.domain.Admin;
 import travelu.travelu_backend.domain.Csticket;
 import travelu.travelu_backend.domain.Diskon;
 import travelu.travelu_backend.domain.InvoicePembayaran;
@@ -15,7 +14,6 @@ import travelu.travelu_backend.domain.Pelanggan;
 import travelu.travelu_backend.domain.Pembayaran;
 import travelu.travelu_backend.domain.Pemesanan;
 import travelu.travelu_backend.model.PemesananDTO;
-import travelu.travelu_backend.repos.AdminRepository;
 import travelu.travelu_backend.repos.CsticketRepository;
 import travelu.travelu_backend.repos.DiskonRepository;
 import travelu.travelu_backend.repos.InvoicePembayaranRepository;
@@ -36,7 +34,6 @@ public class PemesananService {
     private final PembayaranRepository pembayaranRepository;
     private final InvoicePembayaranRepository invoicePembayaranRepository;
     private final DiskonRepository diskonRepository;
-    private final AdminRepository adminRepository;
     private final JadwalRepository jadwalRepository;
     private final CsticketRepository csticketRepository;
 
@@ -44,14 +41,13 @@ public class PemesananService {
             final PelangganRepository pelangganRepository,
             final PembayaranRepository pembayaranRepository,
             final InvoicePembayaranRepository invoicePembayaranRepository,
-            final DiskonRepository diskonRepository, final AdminRepository adminRepository,
-            final JadwalRepository jadwalRepository, final CsticketRepository csticketRepository) {
+            final DiskonRepository diskonRepository, final JadwalRepository jadwalRepository,
+            final CsticketRepository csticketRepository) {
         this.pemesananRepository = pemesananRepository;
         this.pelangganRepository = pelangganRepository;
         this.pembayaranRepository = pembayaranRepository;
         this.invoicePembayaranRepository = invoicePembayaranRepository;
         this.diskonRepository = diskonRepository;
-        this.adminRepository = adminRepository;
         this.jadwalRepository = jadwalRepository;
         this.csticketRepository = csticketRepository;
     }
@@ -88,34 +84,23 @@ public class PemesananService {
 
     private PemesananDTO mapToDTO(final Pemesanan pemesanan, final PemesananDTO pemesananDTO) {
         pemesananDTO.setId(pemesanan.getId());
-        pemesananDTO.setTicketCode(pemesanan.getTicketCode());
         pemesananDTO.setNamaCustomer(pemesanan.getNamaCustomer());
         pemesananDTO.setDiskon(pemesanan.getDiskon());
-        pemesananDTO.setAsal(pemesanan.getAsal());
-        pemesananDTO.setTujuan(pemesanan.getTujuan());
-        pemesananDTO.setTglKeberangkatan(pemesanan.getTglKeberangkatan());
         pemesananDTO.setNoTempatduduk(pemesanan.getNoTempatduduk());
         pemesananDTO.setStatusPembayaran(pemesanan.getStatusPembayaran());
         pemesananDTO.setPelangganId(pemesanan.getPelangganId() == null ? null : pemesanan.getPelangganId().getId());
         pemesananDTO.setPembayaranId(pemesanan.getPembayaranId() == null ? null : pemesanan.getPembayaranId().getId());
-        pemesananDTO.setInvoicePembayaranId(pemesanan.getInvoicePembayaranId() == null ? null : pemesanan.getInvoicePembayaranId().getNoInvoice());
+        pemesananDTO.setNoInvoice(pemesanan.getNoInvoice() == null ? null : pemesanan.getNoInvoice().getNoInvoice());
         pemesananDTO.setListDiskon(pemesanan.getListDiskon().stream()
                 .map(diskon -> diskon.getId())
                 .toList());
-        pemesananDTO.setRoleAdmin(pemesanan.getRoleAdmin().stream()
-                .map(admin -> admin.getId())
-                .toList());
-        pemesananDTO.setTanggalJadwal(pemesanan.getTanggalJadwal() == null ? null : pemesanan.getTanggalJadwal().getId());
+        pemesananDTO.setJadwalId(pemesanan.getJadwalId() == null ? null : pemesanan.getJadwalId().getId());
         return pemesananDTO;
     }
 
     private Pemesanan mapToEntity(final PemesananDTO pemesananDTO, final Pemesanan pemesanan) {
-        pemesanan.setTicketCode(pemesananDTO.getTicketCode());
         pemesanan.setNamaCustomer(pemesananDTO.getNamaCustomer());
         pemesanan.setDiskon(pemesananDTO.getDiskon());
-        pemesanan.setAsal(pemesananDTO.getAsal());
-        pemesanan.setTujuan(pemesananDTO.getTujuan());
-        pemesanan.setTglKeberangkatan(pemesananDTO.getTglKeberangkatan());
         pemesanan.setNoTempatduduk(pemesananDTO.getNoTempatduduk());
         pemesanan.setStatusPembayaran(pemesananDTO.getStatusPembayaran());
         final Pelanggan pelangganId = pemesananDTO.getPelangganId() == null ? null : pelangganRepository.findById(pemesananDTO.getPelangganId())
@@ -124,24 +109,18 @@ public class PemesananService {
         final Pembayaran pembayaranId = pemesananDTO.getPembayaranId() == null ? null : pembayaranRepository.findById(pemesananDTO.getPembayaranId())
                 .orElseThrow(() -> new NotFoundException("pembayaranId not found"));
         pemesanan.setPembayaranId(pembayaranId);
-        final InvoicePembayaran invoicePembayaranId = pemesananDTO.getInvoicePembayaranId() == null ? null : invoicePembayaranRepository.findById(pemesananDTO.getInvoicePembayaranId())
-                .orElseThrow(() -> new NotFoundException("invoicePembayaranId not found"));
-        pemesanan.setInvoicePembayaranId(invoicePembayaranId);
+        final InvoicePembayaran noInvoice = pemesananDTO.getNoInvoice() == null ? null : invoicePembayaranRepository.findById(pemesananDTO.getNoInvoice())
+                .orElseThrow(() -> new NotFoundException("noInvoice not found"));
+        pemesanan.setNoInvoice(noInvoice);
         final List<Diskon> listDiskon = diskonRepository.findAllById(
                 pemesananDTO.getListDiskon() == null ? Collections.emptyList() : pemesananDTO.getListDiskon());
         if (listDiskon.size() != (pemesananDTO.getListDiskon() == null ? 0 : pemesananDTO.getListDiskon().size())) {
             throw new NotFoundException("one of listDiskon not found");
         }
         pemesanan.setListDiskon(new HashSet<>(listDiskon));
-        final List<Admin> roleAdmin = adminRepository.findAllById(
-                pemesananDTO.getRoleAdmin() == null ? Collections.emptyList() : pemesananDTO.getRoleAdmin());
-        if (roleAdmin.size() != (pemesananDTO.getRoleAdmin() == null ? 0 : pemesananDTO.getRoleAdmin().size())) {
-            throw new NotFoundException("one of roleAdmin not found");
-        }
-        pemesanan.setRoleAdmin(new HashSet<>(roleAdmin));
-        final Jadwal tanggalJadwal = pemesananDTO.getTanggalJadwal() == null ? null : jadwalRepository.findById(pemesananDTO.getTanggalJadwal())
-                .orElseThrow(() -> new NotFoundException("tanggalJadwal not found"));
-        pemesanan.setTanggalJadwal(tanggalJadwal);
+        final Jadwal jadwalId = pemesananDTO.getJadwalId() == null ? null : jadwalRepository.findById(pemesananDTO.getJadwalId())
+                .orElseThrow(() -> new NotFoundException("jadwalId not found"));
+        pemesanan.setJadwalId(jadwalId);
         return pemesanan;
     }
 
@@ -149,10 +128,10 @@ public class PemesananService {
         final ReferencedWarning referencedWarning = new ReferencedWarning();
         final Pemesanan pemesanan = pemesananRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
-        final Csticket listPemesananCsticket = csticketRepository.findFirstByListPemesanan(pemesanan);
-        if (listPemesananCsticket != null) {
-            referencedWarning.setKey("pemesanan.csticket.listPemesanan.referenced");
-            referencedWarning.addParam(listPemesananCsticket.getId());
+        final Csticket pemesananIdCsticket = csticketRepository.findFirstByPemesananId(pemesanan);
+        if (pemesananIdCsticket != null) {
+            referencedWarning.setKey("pemesanan.csticket.pemesananId.referenced");
+            referencedWarning.addParam(pemesananIdCsticket.getId());
             return referencedWarning;
         }
         return null;

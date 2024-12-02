@@ -8,10 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import java.time.OffsetDateTime;
-import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -31,12 +29,6 @@ public class Csticket {
     private Long id;
 
     @Column(nullable = false)
-    private Integer userId;
-
-    @Column
-    private Integer orderId;
-
-    @Column(nullable = false)
     private Integer rating;
 
     @Column(nullable = false, columnDefinition = "longtext")
@@ -45,16 +37,16 @@ public class Csticket {
     @Column(nullable = false)
     private Integer status;
 
+    @Column
+    private String title;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "list_pemesanan_id", nullable = false)
-    private Pemesanan listPemesanan;
+    @JoinColumn(name = "pemesanan_id_id")
+    private Pemesanan pemesananId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pelanggan_id_id", nullable = false)
     private Pelanggan pelangganId;
-
-    @ManyToMany(mappedBy = "csTicket")
-    private Set<Admin> roleAdmin;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

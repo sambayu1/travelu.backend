@@ -1,6 +1,7 @@
 package travelu.travelu_backend.model;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,11 +13,6 @@ public class CsticketDTO {
     private Long id;
 
     @NotNull
-    private Integer userId;
-
-    private Integer orderId;
-
-    @NotNull
     private Integer rating;
 
     @NotNull
@@ -25,8 +21,10 @@ public class CsticketDTO {
     @NotNull
     private Integer status;
 
-    @NotNull
-    private Long listPemesanan;
+    @Size(max = 255)
+    private String title;
+
+    private Long pemesananId;
 
     @NotNull
     private Long pelangganId;

@@ -14,12 +14,11 @@
             </div>
             <div th:replace="~{fragments/forms::globalErrors('csticket')}" />
             <form th:action="${requestUri}" method="post">
-                <div th:replace="~{fragments/forms::inputRow(object='csticket', field='userId', required=true, type='number')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='csticket', field='orderId', type='number')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='csticket', field='rating', required=true, type='number')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='csticket', field='content', required=true, type='textarea')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='csticket', field='status', required=true, type='number')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='csticket', field='listPemesanan', required=true, type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='csticket', field='title')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='csticket', field='pemesananId', type='select')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='csticket', field='pelangganId', required=true, type='select')}" />
                 <input type="submit" th:value="#{csticket.add.headline}" class="btn btn-primary mt-4" />
             </form>

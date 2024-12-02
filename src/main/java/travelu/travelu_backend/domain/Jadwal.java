@@ -8,12 +8,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
-import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -33,44 +31,23 @@ public class Jadwal {
     private Long id;
 
     @Column(nullable = false)
-    private Integer armadaId;
+    private LocalDate tanggal;
 
     @Column(nullable = false)
-    private String hari;
+    private LocalTime waktu;
 
     @Column(nullable = false)
-    private Integer tanggal;
+    private String asal;
 
     @Column(nullable = false)
-    private String bulan;
-
-    @Column(nullable = false)
-    private Integer tahun;
-
-    @Column(nullable = false)
-    private LocalDate waktuKeberagkatan;
-
-    @Column(nullable = false)
-    private String lokasiKeberangkatan;
-
-    @Column(nullable = false)
-    private String tujuan;
+    private String destinasi;
 
     @Column(nullable = false)
     private Integer hargaTiket;
 
-    @OneToMany(mappedBy = "tanggalJadwal")
-    private Set<Pemesanan> listPemesanan;
-
-    @ManyToMany(mappedBy = "tanggalJadwal")
-    private Set<Pelanggan> pelangganId;
-
-    @ManyToMany(mappedBy = "tanggalJadwal")
-    private Set<Admin> roleAdmin;
-
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "list_armada_id", nullable = false, unique = true)
-    private Armada listArmada;
+    @JoinColumn(name = "armada_id_id", nullable = false, unique = true)
+    private Armada armadaId;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

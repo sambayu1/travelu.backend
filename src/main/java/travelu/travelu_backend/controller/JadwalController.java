@@ -35,7 +35,7 @@ public class JadwalController {
 
     @ModelAttribute
     public void prepareContext(final Model model) {
-        model.addAttribute("listArmadaValues", armadaRepository.findAll(Sort.by("id"))
+        model.addAttribute("armadaIdValues", armadaRepository.findAll(Sort.by("id"))
                 .stream()
                 .collect(CustomCollectors.toSortedMap(Armada::getId, Armada::getPlatNom)));
     }

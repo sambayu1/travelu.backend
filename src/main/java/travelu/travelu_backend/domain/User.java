@@ -1,11 +1,11 @@
 package travelu.travelu_backend.domain;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import java.time.OffsetDateTime;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,13 +14,14 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
-@Entity
+@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class User {
+public abstract class User {
 
     @Id
+    @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -30,14 +31,11 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @Column
-    private OffsetDateTime emailVerifiedAt;
-
     @Column(nullable = false)
     private String password;
 
-    @Column(columnDefinition = "longtext")
-    private String permissions;
+    @Column(name = "\"role\"", columnDefinition = "longtext")
+    private String role;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

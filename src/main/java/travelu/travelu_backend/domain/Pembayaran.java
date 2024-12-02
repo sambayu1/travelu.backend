@@ -40,8 +40,8 @@ public class Pembayaran {
     private Set<Pemesanan> listPemesanan;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "invoice_pembayaran_id", nullable = false, unique = true)
-    private InvoicePembayaran invoicePembayaran;
+    @JoinColumn(name = "no_invoice_id", nullable = false, unique = true)
+    private InvoicePembayaran noInvoice;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

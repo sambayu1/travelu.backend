@@ -33,7 +33,8 @@ error:
     log-levels:
       5xx: ERROR
     codes:
-      JadwalListArmadaUnique: JADWAL_LIST_ARMADA_UNIQUE
-      PembayaranInvoicePembayaranUnique: PEMBAYARAN_INVOICE_PEMBAYARAN_UNIQUE
+      JadwalArmadaIdUnique: JADWAL_ARMADA_ID_UNIQUE
+      PembayaranNoInvoiceUnique: PEMBAYARAN_NO_INVOICE_UNIQUE
+      InvoicePembayaranNoInvoiceValid: INVOICE_PEMBAYARAN_NO_INVOICE_VALID
 springdoc:
   pathsToMatch: /api/**

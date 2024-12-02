@@ -1,7 +1,7 @@
 package travelu.travelu_backend.model;
 
 import jakarta.validation.constraints.NotNull;
-import java.util.List;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,14 +13,20 @@ public class PelangganDTO {
     private Long id;
 
     @NotNull
-    private String nama;
+    @Size(max = 255)
+    private String name;
 
     @NotNull
+    @Size(max = 255)
     private String email;
 
     @NotNull
-    private String noTelp;
+    @Size(max = 255)
+    private String password;
 
-    private List<Long> tanggalJadwal;
+    private String role;
+
+    @NotNull
+    private String noTelp;
 
 }

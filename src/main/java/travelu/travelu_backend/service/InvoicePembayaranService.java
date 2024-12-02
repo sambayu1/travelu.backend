@@ -36,33 +36,33 @@ public class InvoicePembayaranService {
                 .toList();
     }
 
-    public InvoicePembayaranDTO get(final Long noInvoice) {
+    public InvoicePembayaranDTO get(final String noInvoice) {
         return invoicePembayaranRepository.findById(noInvoice)
                 .map(invoicePembayaran -> mapToDTO(invoicePembayaran, new InvoicePembayaranDTO()))
                 .orElseThrow(NotFoundException::new);
     }
 
-    public Long create(final InvoicePembayaranDTO invoicePembayaranDTO) {
+    public String create(final InvoicePembayaranDTO invoicePembayaranDTO) {
         final InvoicePembayaran invoicePembayaran = new InvoicePembayaran();
         mapToEntity(invoicePembayaranDTO, invoicePembayaran);
+        invoicePembayaran.setNoInvoice(invoicePembayaranDTO.getNoInvoice());
         return invoicePembayaranRepository.save(invoicePembayaran).getNoInvoice();
     }
 
-    public void update(final Long noInvoice, final InvoicePembayaranDTO invoicePembayaranDTO) {
+    public void update(final String noInvoice, final InvoicePembayaranDTO invoicePembayaranDTO) {
         final InvoicePembayaran invoicePembayaran = invoicePembayaranRepository.findById(noInvoice)
                 .orElseThrow(NotFoundException::new);
         mapToEntity(invoicePembayaranDTO, invoicePembayaran);
         invoicePembayaranRepository.save(invoicePembayaran);
     }
 
-    public void delete(final Long noInvoice) {
+    public void delete(final String noInvoice) {
         invoicePembayaranRepository.deleteById(noInvoice);
     }
 
     private InvoicePembayaranDTO mapToDTO(final InvoicePembayaran invoicePembayaran,
             final InvoicePembayaranDTO invoicePembayaranDTO) {
         invoicePembayaranDTO.setNoInvoice(invoicePembayaran.getNoInvoice());
-        invoicePembayaranDTO.setTicketCode(invoicePembayaran.getTicketCode());
         invoicePembayaranDTO.setStatus(invoicePembayaran.getStatus());
         invoicePembayaranDTO.setHarga(invoicePembayaran.getHarga());
         return invoicePembayaranDTO;
@@ -70,26 +70,29 @@ public class InvoicePembayaranService {
 
     private InvoicePembayaran mapToEntity(final InvoicePembayaranDTO invoicePembayaranDTO,
             final InvoicePembayaran invoicePembayaran) {
-        invoicePembayaran.setTicketCode(invoicePembayaranDTO.getTicketCode());
         invoicePembayaran.setStatus(invoicePembayaranDTO.getStatus());
         invoicePembayaran.setHarga(invoicePembayaranDTO.getHarga());
         return invoicePembayaran;
     }
 
-    public ReferencedWarning getReferencedWarning(final Long noInvoice) {
+    public boolean noInvoiceExists(final String noInvoice) {
+        return invoicePembayaranRepository.existsByNoInvoiceIgnoreCase(noInvoice);
+    }
+
+    public ReferencedWarning getReferencedWarning(final String noInvoice) {
         final ReferencedWarning referencedWarning = new ReferencedWarning();
         final InvoicePembayaran invoicePembayaran = invoicePembayaranRepository.findById(noInvoice)
                 .orElseThrow(NotFoundException::new);
-        final Pemesanan invoicePembayaranIdPemesanan = pemesananRepository.findFirstByInvoicePembayaranId(invoicePembayaran);
-        if (invoicePembayaranIdPemesanan != null) {
-            referencedWarning.setKey("invoicePembayaran.pemesanan.invoicePembayaranId.referenced");
-            referencedWarning.addParam(invoicePembayaranIdPemesanan.getId());
+        final Pemesanan noInvoicePemesanan = pemesananRepository.findFirstByNoInvoice(invoicePembayaran);
+        if (noInvoicePemesanan != null) {
+            referencedWarning.setKey("invoicePembayaran.pemesanan.noInvoice.referenced");
+            referencedWarning.addParam(noInvoicePemesanan.getId());
             return referencedWarning;
         }
-        final Pembayaran invoicePembayaranPembayaran = pembayaranRepository.findFirstByInvoicePembayaran(invoicePembayaran);
-        if (invoicePembayaranPembayaran != null) {
-            referencedWarning.setKey("invoicePembayaran.pembayaran.invoicePembayaran.referenced");
-            referencedWarning.addParam(invoicePembayaranPembayaran.getId());
+        final Pembayaran noInvoicePembayaran = pembayaranRepository.findFirstByNoInvoice(invoicePembayaran);
+        if (noInvoicePembayaran != null) {
+            referencedWarning.setKey("invoicePembayaran.pembayaran.noInvoice.referenced");
+            referencedWarning.addParam(noInvoicePembayaran.getId());
             return referencedWarning;
         }
         return null;

@@ -14,10 +14,11 @@
             </div>
             <div th:replace="~{fragments/forms::globalErrors('pelanggan')}" />
             <form th:action="${requestUri}" method="post">
-                <div th:replace="~{fragments/forms::inputRow(object='pelanggan', field='nama', required=true, type='textarea')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='pelanggan', field='email', required=true, type='textarea')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pelanggan', field='name', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pelanggan', field='email', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pelanggan', field='password', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pelanggan', field='role', type='textarea')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='pelanggan', field='noTelp', required=true, type='textarea')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='pelanggan', field='tanggalJadwal', type='multiselect')}" />
                 <input type="submit" th:value="#{pelanggan.add.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>

@@ -2,7 +2,6 @@ package travelu.travelu_backend.model;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import java.time.LocalDate;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,24 +15,9 @@ public class PemesananDTO {
 
     @NotNull
     @Size(max = 255)
-    private String ticketCode;
-
-    @NotNull
-    @Size(max = 255)
     private String namaCustomer;
 
     private String diskon;
-
-    @NotNull
-    @Size(max = 255)
-    private String asal;
-
-    @NotNull
-    @Size(max = 255)
-    private String tujuan;
-
-    @NotNull
-    private LocalDate tglKeberangkatan;
 
     @NotNull
     @Size(max = 255)
@@ -46,17 +30,14 @@ public class PemesananDTO {
     @NotNull
     private Long pelangganId;
 
-    @NotNull
     private Long pembayaranId;
 
-    @NotNull
-    private Long invoicePembayaranId;
+    @Size(max = 255)
+    private String noInvoice;
 
     private List<Long> listDiskon;
 
-    private List<Long> roleAdmin;
-
     @NotNull
-    private Long tanggalJadwal;
+    private Long jadwalId;
 
 }

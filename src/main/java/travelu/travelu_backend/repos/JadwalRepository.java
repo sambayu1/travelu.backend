@@ -7,8 +7,8 @@ import travelu.travelu_backend.domain.Jadwal;
 
 public interface JadwalRepository extends JpaRepository<Jadwal, Long> {
 
-    Jadwal findFirstByListArmada(Armada armada);
+    Jadwal findFirstByArmadaId(Armada armada);
 
-    boolean existsByListArmadaId(Long id);
+    boolean existsByArmadaIdId(Long id);
 
 }

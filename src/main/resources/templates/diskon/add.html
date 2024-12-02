@@ -18,7 +18,6 @@
                 <div th:replace="~{fragments/forms::inputRow(object='diskon', field='harga', type='number')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='diskon', field='percent', type='number')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='diskon', field='code', required=true)}" />
-                <div th:replace="~{fragments/forms::inputRow(object='diskon', field='roleAdmin', type='multiselect')}" />
                 <input type="submit" th:value="#{diskon.add.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>

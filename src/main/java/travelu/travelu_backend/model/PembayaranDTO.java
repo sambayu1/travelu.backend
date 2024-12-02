@@ -18,7 +18,8 @@ public class PembayaranDTO {
     private Double harga;
 
     @NotNull
-    @PembayaranInvoicePembayaranUnique
-    private Long invoicePembayaran;
+    @Size(max = 255)
+    @PembayaranNoInvoiceUnique
+    private String noInvoice;
 
 }

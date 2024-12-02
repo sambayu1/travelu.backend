@@ -81,10 +81,10 @@ public class ArmadaService {
         final ReferencedWarning referencedWarning = new ReferencedWarning();
         final Armada armada = armadaRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
-        final Jadwal listArmadaJadwal = jadwalRepository.findFirstByListArmada(armada);
-        if (listArmadaJadwal != null) {
-            referencedWarning.setKey("armada.jadwal.listArmada.referenced");
-            referencedWarning.addParam(listArmadaJadwal.getId());
+        final Jadwal armadaIdJadwal = jadwalRepository.findFirstByArmadaId(armada);
+        if (armadaIdJadwal != null) {
+            referencedWarning.setKey("armada.jadwal.armadaId.referenced");
+            referencedWarning.addParam(armadaIdJadwal.getId());
             return referencedWarning;
         }
         return null;

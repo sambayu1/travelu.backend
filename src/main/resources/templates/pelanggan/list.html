@@ -18,12 +18,18 @@
                     <thead>
                         <tr>
                             <th scope="col">[[#{pelanggan.id.label}]]</th>
+                            <th scope="col">[[#{pelanggan.name.label}]]</th>
+                            <th scope="col">[[#{pelanggan.email.label}]]</th>
+                            <th scope="col">[[#{pelanggan.password.label}]]</th>
                             <th><!-- --></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="pelanggan : ${pelanggans}">
                             <td>[[${pelanggan.id}]]</td>
+                            <td>[[${pelanggan.name}]]</td>
+                            <td>[[${pelanggan.email}]]</td>
+                            <td>[[${pelanggan.password}]]</td>
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/pelanggans/edit/{id}(id=${pelanggan.id})}" class="btn btn-sm btn-secondary">[[#{pelanggan.list.edit}]]</a>

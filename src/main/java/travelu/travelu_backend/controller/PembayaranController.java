@@ -35,9 +35,9 @@ public class PembayaranController {
 
     @ModelAttribute
     public void prepareContext(final Model model) {
-        model.addAttribute("invoicePembayaranValues", invoicePembayaranRepository.findAll(Sort.by("noInvoice"))
+        model.addAttribute("noInvoiceValues", invoicePembayaranRepository.findAll(Sort.by("noInvoice"))
                 .stream()
-                .collect(CustomCollectors.toSortedMap(InvoicePembayaran::getNoInvoice, InvoicePembayaran::getTicketCode)));
+                .collect(CustomCollectors.toSortedMap(InvoicePembayaran::getNoInvoice, InvoicePembayaran::getNoInvoice)));
     }
 
     @GetMapping

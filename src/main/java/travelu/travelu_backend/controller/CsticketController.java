@@ -39,12 +39,12 @@ public class CsticketController {
 
     @ModelAttribute
     public void prepareContext(final Model model) {
-        model.addAttribute("listPemesananValues", pemesananRepository.findAll(Sort.by("id"))
+        model.addAttribute("pemesananIdValues", pemesananRepository.findAll(Sort.by("id"))
                 .stream()
-                .collect(CustomCollectors.toSortedMap(Pemesanan::getId, Pemesanan::getTicketCode)));
+                .collect(CustomCollectors.toSortedMap(Pemesanan::getId, Pemesanan::getNamaCustomer)));
         model.addAttribute("pelangganIdValues", pelangganRepository.findAll(Sort.by("id"))
                 .stream()
-                .collect(CustomCollectors.toSortedMap(Pelanggan::getId, Pelanggan::getId)));
+                .collect(CustomCollectors.toSortedMap(Pelanggan::getId, Pelanggan::getName)));
     }
 
     @GetMapping

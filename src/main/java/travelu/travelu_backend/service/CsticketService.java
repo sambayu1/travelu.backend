@@ -63,32 +63,30 @@ public class CsticketService {
         final Csticket csticket = csticketRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
         // remove many-to-many relations at owning side
-        adminRepository.findAllByCsTicket(csticket)
-                .forEach(admin -> admin.getCsTicket().remove(csticket));
+        adminRepository.findAllByListComplain(csticket)
+                .forEach(admin -> admin.getListComplain().remove(csticket));
         csticketRepository.delete(csticket);
     }
 
     private CsticketDTO mapToDTO(final Csticket csticket, final CsticketDTO csticketDTO) {
         csticketDTO.setId(csticket.getId());
-        csticketDTO.setUserId(csticket.getUserId());
-        csticketDTO.setOrderId(csticket.getOrderId());
         csticketDTO.setRating(csticket.getRating());
         csticketDTO.setContent(csticket.getContent());
         csticketDTO.setStatus(csticket.getStatus());
-        csticketDTO.setListPemesanan(csticket.getListPemesanan() == null ? null : csticket.getListPemesanan().getId());
+        csticketDTO.setTitle(csticket.getTitle());
+        csticketDTO.setPemesananId(csticket.getPemesananId() == null ? null : csticket.getPemesananId().getId());
         csticketDTO.setPelangganId(csticket.getPelangganId() == null ? null : csticket.getPelangganId().getId());
         return csticketDTO;
     }
 
     private Csticket mapToEntity(final CsticketDTO csticketDTO, final Csticket csticket) {
-        csticket.setUserId(csticketDTO.getUserId());
-        csticket.setOrderId(csticketDTO.getOrderId());
         csticket.setRating(csticketDTO.getRating());
         csticket.setContent(csticketDTO.getContent());
         csticket.setStatus(csticketDTO.getStatus());
-        final Pemesanan listPemesanan = csticketDTO.getListPemesanan() == null ? null : pemesananRepository.findById(csticketDTO.getListPemesanan())
-                .orElseThrow(() -> new NotFoundException("listPemesanan not found"));
-        csticket.setListPemesanan(listPemesanan);
+        csticket.setTitle(csticketDTO.getTitle());
+        final Pemesanan pemesananId = csticketDTO.getPemesananId() == null ? null : pemesananRepository.findById(csticketDTO.getPemesananId())
+                .orElseThrow(() -> new NotFoundException("pemesananId not found"));
+        csticket.setPemesananId(pemesananId);
         final Pelanggan pelangganId = csticketDTO.getPelangganId() == null ? null : pelangganRepository.findById(csticketDTO.getPelangganId())
                 .orElseThrow(() -> new NotFoundException("pelangganId not found"));
         csticket.setPelangganId(pelangganId);

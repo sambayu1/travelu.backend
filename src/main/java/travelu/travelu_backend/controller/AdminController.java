@@ -13,13 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import travelu.travelu_backend.domain.Armada;
 import travelu.travelu_backend.domain.Csticket;
+import travelu.travelu_backend.domain.Diskon;
 import travelu.travelu_backend.domain.Jadwal;
 import travelu.travelu_backend.model.AdminDTO;
 import travelu.travelu_backend.repos.ArmadaRepository;
 import travelu.travelu_backend.repos.CsticketRepository;
+import travelu.travelu_backend.repos.DiskonRepository;
 import travelu.travelu_backend.repos.JadwalRepository;
 import travelu.travelu_backend.service.AdminService;
 import travelu.travelu_backend.util.CustomCollectors;
+import travelu.travelu_backend.util.ReferencedWarning;
 import travelu.travelu_backend.util.WebUtils;
 
 
@@ -28,13 +31,16 @@ import travelu.travelu_backend.util.WebUtils;
 public class AdminController {
 
     private final AdminService adminService;
+    private final DiskonRepository diskonRepository;
     private final ArmadaRepository armadaRepository;
     private final CsticketRepository csticketRepository;
     private final JadwalRepository jadwalRepository;
 
-    public AdminController(final AdminService adminService, final ArmadaRepository armadaRepository,
-            final CsticketRepository csticketRepository, final JadwalRepository jadwalRepository) {
+    public AdminController(final AdminService adminService, final DiskonRepository diskonRepository,
+            final ArmadaRepository armadaRepository, final CsticketRepository csticketRepository,
+            final JadwalRepository jadwalRepository) {
         this.adminService = adminService;
+        this.diskonRepository = diskonRepository;
         this.armadaRepository = armadaRepository;
         this.csticketRepository = csticketRepository;
         this.jadwalRepository = jadwalRepository;
@@ -42,15 +48,18 @@ public class AdminController {
 
     @ModelAttribute
     public void prepareContext(final Model model) {
+        model.addAttribute("listDiskonValues", diskonRepository.findAll(Sort.by("id"))
+                .stream()
+                .collect(CustomCollectors.toSortedMap(Diskon::getId, Diskon::getNama)));
         model.addAttribute("listArmadaValues", armadaRepository.findAll(Sort.by("id"))
                 .stream()
                 .collect(CustomCollectors.toSortedMap(Armada::getId, Armada::getPlatNom)));
-        model.addAttribute("csTicketValues", csticketRepository.findAll(Sort.by("id"))
+        model.addAttribute("listComplainValues", csticketRepository.findAll(Sort.by("id"))
                 .stream()
                 .collect(CustomCollectors.toSortedMap(Csticket::getId, Csticket::getId)));
-        model.addAttribute("tanggalJadwalValues", jadwalRepository.findAll(Sort.by("id"))
+        model.addAttribute("listJadwalValues", jadwalRepository.findAll(Sort.by("id"))
                 .stream()
-                .collect(CustomCollectors.toSortedMap(Jadwal::getId, Jadwal::getHari)));
+                .collect(CustomCollectors.toSortedMap(Jadwal::getId, Jadwal::getAsal)));
     }
 
     @GetMapping
@@ -96,8 +105,14 @@ public class AdminController {
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable(name = "id") final Long id,
             final RedirectAttributes redirectAttributes) {
-        adminService.delete(id);
-        redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("admin.delete.success"));
+        final ReferencedWarning referencedWarning = adminService.getReferencedWarning(id);
+        if (referencedWarning != null) {
+            redirectAttributes.addFlashAttribute(WebUtils.MSG_ERROR,
+                    WebUtils.getMessage(referencedWarning.getKey(), referencedWarning.getParams().toArray()));
+        } else {
+            adminService.delete(id);
+            redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("admin.delete.success"));
+        }
         return "redirect:/admins";
     }
 

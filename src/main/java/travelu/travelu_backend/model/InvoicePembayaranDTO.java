@@ -10,11 +10,9 @@ import lombok.Setter;
 @Setter
 public class InvoicePembayaranDTO {
 
-    private Long noInvoice;
-
-    @NotNull
     @Size(max = 255)
-    private String ticketCode;
+    @InvoicePembayaranNoInvoiceValid
+    private String noInvoice;
 
     @NotNull
     private Integer status;

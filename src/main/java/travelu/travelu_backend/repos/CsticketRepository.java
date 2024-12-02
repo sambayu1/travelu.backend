@@ -8,7 +8,7 @@ import travelu.travelu_backend.domain.Pemesanan;
 
 public interface CsticketRepository extends JpaRepository<Csticket, Long> {
 
-    Csticket findFirstByListPemesanan(Pemesanan pemesanan);
+    Csticket findFirstByPemesananId(Pemesanan pemesanan);
 
     Csticket findFirstByPelangganId(Pelanggan pelanggan);
 

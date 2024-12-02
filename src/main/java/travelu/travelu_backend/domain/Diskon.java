@@ -6,11 +6,7 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import java.time.OffsetDateTime;
-import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -40,17 +36,6 @@ public class Diskon {
 
     @Column(nullable = false)
     private String code;
-
-    @ManyToMany(mappedBy = "listDiskon")
-    private Set<Pemesanan> listPemesanan;
-
-    @ManyToMany
-    @JoinTable(
-            name = "AdminCekDiskon",
-            joinColumns = @JoinColumn(name = "diskonId"),
-            inverseJoinColumns = @JoinColumn(name = "adminId")
-    )
-    private Set<Admin> roleAdmin;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

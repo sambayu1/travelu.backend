@@ -15,10 +15,14 @@
             <div th:replace="~{fragments/forms::globalErrors('admin')}" />
             <form th:action="${requestUri}" method="post">
                 <div th:replace="~{fragments/forms::inputRow(object='admin', field='id', disabled=true, type='number')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='admin', field='usersId', required=true, type='textarea')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='admin', field='name', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='admin', field='email', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='admin', field='password', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='admin', field='role', type='textarea')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='admin', field='listDiskon', type='multiselect')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='admin', field='listArmada', type='multiselect')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='admin', field='csTicket', type='multiselect')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='admin', field='tanggalJadwal', type='multiselect')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='admin', field='listComplain', type='multiselect')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='admin', field='listJadwal', type='multiselect')}" />
                 <input type="submit" th:value="#{admin.edit.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>

@@ -18,11 +18,10 @@
                     <thead>
                         <tr>
                             <th scope="col">[[#{csticket.id.label}]]</th>
-                            <th scope="col">[[#{csticket.userId.label}]]</th>
-                            <th scope="col">[[#{csticket.orderId.label}]]</th>
                             <th scope="col">[[#{csticket.rating.label}]]</th>
                             <th scope="col">[[#{csticket.status.label}]]</th>
-                            <th scope="col">[[#{csticket.listPemesanan.label}]]</th>
+                            <th scope="col">[[#{csticket.title.label}]]</th>
+                            <th scope="col">[[#{csticket.pemesananId.label}]]</th>
                             <th scope="col">[[#{csticket.pelangganId.label}]]</th>
                             <th><!-- --></th>
                         </tr>
@@ -30,11 +29,10 @@
                     <tbody>
                         <tr th:each="csticket : ${cstickets}">
                             <td>[[${csticket.id}]]</td>
-                            <td>[[${csticket.userId}]]</td>
-                            <td>[[${csticket.orderId}]]</td>
                             <td>[[${csticket.rating}]]</td>
                             <td>[[${csticket.status}]]</td>
-                            <td>[[${csticket.listPemesanan}]]</td>
+                            <td>[[${csticket.title}]]</td>
+                            <td>[[${csticket.pemesananId}]]</td>
                             <td>[[${csticket.pelangganId}]]</td>
                             <td>
                                 <div class="float-end text-nowrap">

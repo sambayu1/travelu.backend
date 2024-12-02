@@ -5,21 +5,26 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import travelu.travelu_backend.domain.Admin;
 import travelu.travelu_backend.domain.Armada;
 import travelu.travelu_backend.domain.Csticket;
+import travelu.travelu_backend.domain.Diskon;
 import travelu.travelu_backend.domain.Jadwal;
 
 
 public interface AdminRepository extends JpaRepository<Admin, Long> {
 
+    Admin findFirstByListDiskon(Diskon diskon);
+
     Admin findFirstByListArmada(Armada armada);
 
-    Admin findFirstByCsTicket(Csticket csticket);
+    Admin findFirstByListComplain(Csticket csticket);
 
-    Admin findFirstByTanggalJadwal(Jadwal jadwal);
+    Admin findFirstByListJadwal(Jadwal jadwal);
+
+    List<Admin> findAllByListDiskon(Diskon diskon);
 
     List<Admin> findAllByListArmada(Armada armada);
 
-    List<Admin> findAllByCsTicket(Csticket csticket);
+    List<Admin> findAllByListComplain(Csticket csticket);
 
-    List<Admin> findAllByTanggalJadwal(Jadwal jadwal);
+    List<Admin> findAllByListJadwal(Jadwal jadwal);
 
 }

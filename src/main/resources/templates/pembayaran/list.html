@@ -20,7 +20,7 @@
                             <th scope="col">[[#{pembayaran.id.label}]]</th>
                             <th scope="col">[[#{pembayaran.metode.label}]]</th>
                             <th scope="col">[[#{pembayaran.harga.label}]]</th>
-                            <th scope="col">[[#{pembayaran.invoicePembayaran.label}]]</th>
+                            <th scope="col">[[#{pembayaran.noInvoice.label}]]</th>
                             <th><!-- --></th>
                         </tr>
                     </thead>
@@ -29,7 +29,7 @@
                             <td>[[${pembayaran.id}]]</td>
                             <td>[[${pembayaran.metode}]]</td>
                             <td>[[${pembayaran.harga}]]</td>
-                            <td>[[${pembayaran.invoicePembayaran}]]</td>
+                            <td>[[${pembayaran.noInvoice}]]</td>
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/pembayarans/edit/{id}(id=${pembayaran.id})}" class="btn btn-sm btn-secondary">[[#{pembayaran.list.edit}]]</a>

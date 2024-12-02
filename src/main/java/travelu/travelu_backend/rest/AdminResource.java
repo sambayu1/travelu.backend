@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import travelu.travelu_backend.model.AdminDTO;
 import travelu.travelu_backend.service.AdminService;
+import travelu.travelu_backend.util.ReferencedException;
+import travelu.travelu_backend.util.ReferencedWarning;
 
 
 @RestController
@@ -55,6 +57,10 @@ public class AdminResource {
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
     public ResponseEntity<Void> deleteAdmin(@PathVariable(name = "id") final Long id) {
+        final ReferencedWarning referencedWarning = adminService.getReferencedWarning(id);
+        if (referencedWarning != null) {
+            throw new ReferencedException(referencedWarning);
+        }
         adminService.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -2,7 +2,6 @@ package travelu.travelu_backend.repos;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import travelu.travelu_backend.domain.Admin;
 import travelu.travelu_backend.domain.Diskon;
 import travelu.travelu_backend.domain.InvoicePembayaran;
 import travelu.travelu_backend.domain.Jadwal;
@@ -17,16 +16,12 @@ public interface PemesananRepository extends JpaRepository<Pemesanan, Long> {
 
     Pemesanan findFirstByPembayaranId(Pembayaran pembayaran);
 
-    Pemesanan findFirstByInvoicePembayaranId(InvoicePembayaran invoicePembayaran);
+    Pemesanan findFirstByNoInvoice(InvoicePembayaran invoicePembayaran);
 
     Pemesanan findFirstByListDiskon(Diskon diskon);
 
-    Pemesanan findFirstByRoleAdmin(Admin admin);
-
-    Pemesanan findFirstByTanggalJadwal(Jadwal jadwal);
+    Pemesanan findFirstByJadwalId(Jadwal jadwal);
 
     List<Pemesanan> findAllByListDiskon(Diskon diskon);
-
-    List<Pemesanan> findAllByRoleAdmin(Admin admin);
 
 }

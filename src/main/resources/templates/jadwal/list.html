@@ -18,26 +18,24 @@
                     <thead>
                         <tr>
                             <th scope="col">[[#{jadwal.id.label}]]</th>
-                            <th scope="col">[[#{jadwal.armadaId.label}]]</th>
-                            <th scope="col">[[#{jadwal.hari.label}]]</th>
                             <th scope="col">[[#{jadwal.tanggal.label}]]</th>
-                            <th scope="col">[[#{jadwal.bulan.label}]]</th>
-                            <th scope="col">[[#{jadwal.tahun.label}]]</th>
-                            <th scope="col">[[#{jadwal.waktuKeberagkatan.label}]]</th>
-                            <th scope="col">[[#{jadwal.lokasiKeberangkatan.label}]]</th>
+                            <th scope="col">[[#{jadwal.waktu.label}]]</th>
+                            <th scope="col">[[#{jadwal.asal.label}]]</th>
+                            <th scope="col">[[#{jadwal.destinasi.label}]]</th>
+                            <th scope="col">[[#{jadwal.hargaTiket.label}]]</th>
+                            <th scope="col">[[#{jadwal.armadaId.label}]]</th>
                             <th><!-- --></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="jadwal : ${jadwals}">
                             <td>[[${jadwal.id}]]</td>
-                            <td>[[${jadwal.armadaId}]]</td>
-                            <td>[[${jadwal.hari}]]</td>
                             <td>[[${jadwal.tanggal}]]</td>
-                            <td>[[${jadwal.bulan}]]</td>
-                            <td>[[${jadwal.tahun}]]</td>
-                            <td>[[${jadwal.waktuKeberagkatan}]]</td>
-                            <td>[[${jadwal.lokasiKeberangkatan}]]</td>
+                            <td>[[${jadwal.waktu}]]</td>
+                            <td>[[${jadwal.asal}]]</td>
+                            <td>[[${jadwal.destinasi}]]</td>
+                            <td>[[${jadwal.hargaTiket}]]</td>
+                            <td>[[${jadwal.armadaId}]]</td>
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/jadwals/edit/{id}(id=${jadwal.id})}" class="btn btn-sm btn-secondary">[[#{jadwal.list.edit}]]</a>

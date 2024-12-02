@@ -14,18 +14,13 @@
             </div>
             <div th:replace="~{fragments/forms::globalErrors('jadwal')}" />
             <form th:action="${requestUri}" method="post">
-                <input type="submit" th:value="#{jadwal.edit.headline}" class="btn btn-primary mt-4 mb-4" />
                 <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='id', disabled=true, type='number')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='armadaId', required=true, type='number')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='hari', required=true)}" />
-                <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='tanggal', required=true, type='number')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='bulan', required=true)}" />
-                <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='tahun', required=true, type='number')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='waktuKeberagkatan', required=true, inputClass='js-datepicker')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='lokasiKeberangkatan', required=true)}" />
-                <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='tujuan', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='tanggal', required=true, inputClass='js-datepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='waktu', required=true, inputClass='js-timepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='asal', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='destinasi', required=true)}" />
                 <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='hargaTiket', required=true, type='number')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='listArmada', required=true, type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='jadwal', field='armadaId', required=true, type='select')}" />
                 <input type="submit" th:value="#{jadwal.edit.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>

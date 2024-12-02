@@ -4,8 +4,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -26,11 +24,7 @@ public class InvoicePembayaran {
 
     @Id
     @Column(nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long noInvoice;
-
-    @Column(nullable = false)
-    private String ticketCode;
+    private String noInvoice;
 
     @Column(nullable = false)
     private Integer status;
@@ -38,13 +32,10 @@ public class InvoicePembayaran {
     @Column(nullable = false)
     private Double harga;
 
-    @OneToMany(mappedBy = "invoicePembayaranId")
+    @OneToMany(mappedBy = "noInvoice")
     private Set<Pemesanan> listPemesanan;
 
-    @OneToOne(
-            mappedBy = "invoicePembayaran",
-            fetch = FetchType.LAZY
-    )
+    @OneToOne(mappedBy = "noInvoice", fetch = FetchType.LAZY)
     private Pembayaran pembayaranId;
 
     @CreatedDate

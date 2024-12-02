@@ -16,7 +16,7 @@
             <form th:action="${requestUri}" method="post">
                 <div th:replace="~{fragments/forms::inputRow(object='pembayaran', field='metode')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='pembayaran', field='harga')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='pembayaran', field='invoicePembayaran', required=true, type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='pembayaran', field='noInvoice', required=true, type='select')}" />
                 <input type="submit" th:value="#{pembayaran.add.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>

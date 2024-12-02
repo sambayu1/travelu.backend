@@ -7,8 +7,8 @@ import travelu.travelu_backend.domain.Pembayaran;
 
 public interface PembayaranRepository extends JpaRepository<Pembayaran, Long> {
 
-    Pembayaran findFirstByInvoicePembayaran(InvoicePembayaran invoicePembayaran);
+    Pembayaran findFirstByNoInvoice(InvoicePembayaran invoicePembayaran);
 
-    boolean existsByInvoicePembayaranNoInvoice(Long noInvoice);
+    boolean existsByNoInvoiceNoInvoiceIgnoreCase(String noInvoice);
 
 }

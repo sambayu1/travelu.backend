@@ -11,8 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Set;
 import lombok.Getter;
@@ -34,22 +32,10 @@ public class Pemesanan {
     private Long id;
 
     @Column(nullable = false)
-    private String ticketCode;
-
-    @Column(nullable = false)
     private String namaCustomer;
 
     @Column(columnDefinition = "longtext")
     private String diskon;
-
-    @Column(nullable = false)
-    private String asal;
-
-    @Column(nullable = false)
-    private String tujuan;
-
-    @Column(nullable = false)
-    private LocalDate tglKeberangkatan;
 
     @Column(nullable = false)
     private String noTempatduduk;
@@ -62,12 +48,12 @@ public class Pemesanan {
     private Pelanggan pelangganId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pembayaran_id_id", nullable = false)
+    @JoinColumn(name = "pembayaran_id_id")
     private Pembayaran pembayaranId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "invoice_pembayaran_id_id", nullable = false)
-    private InvoicePembayaran invoicePembayaranId;
+    @JoinColumn(name = "no_invoice_id")
+    private InvoicePembayaran noInvoice;
 
     @ManyToMany
     @JoinTable(
@@ -77,20 +63,9 @@ public class Pemesanan {
     )
     private Set<Diskon> listDiskon;
 
-    @ManyToMany
-    @JoinTable(
-            name = "AdminControlPemesanan",
-            joinColumns = @JoinColumn(name = "pemesananId"),
-            inverseJoinColumns = @JoinColumn(name = "adminId")
-    )
-    private Set<Admin> roleAdmin;
-
-    @OneToMany(mappedBy = "listPemesanan")
-    private Set<Csticket> csTicket;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tanggal_jadwal_id", nullable = false)
-    private Jadwal tanggalJadwal;
+    @JoinColumn(name = "jadwal_id_id", nullable = false)
+    private Jadwal jadwalId;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

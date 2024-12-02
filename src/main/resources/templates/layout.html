@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
-            <title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">Travel-U</title>
+        <title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">[[#{app.title}]]</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -40,8 +40,10 @@
                                     <li><a th:href="@{/jadwals}" class="dropdown-item">[[#{jadwal.list.headline}]]</a></li>
                                     <li><a th:href="@{/pelanggans}" class="dropdown-item">[[#{pelanggan.list.headline}]]</a></li>
                                     <li><a th:href="@{/pemesanans}" class="dropdown-item">[[#{pemesanan.list.headline}]]</a></li>
-                                    <li><a th:href="@{/users}" class="dropdown-item">[[#{user.list.headline}]]</a></li>
                                     <li><a th:href="@{/pembayarans}" class="dropdown-item">[[#{pembayaran.list.headline}]]</a></li>
+                                    <li><a th:href="@{/bannerImages}" class="dropdown-item">[[#{bannerImage.list.headline}]]</a></li>
+                                    <li><a th:href="@{/destinasiItineraris}" class="dropdown-item">[[#{destinasiItinerari.list.headline}]]</a></li>
+                                    <li><a th:href="@{/itineraris}" class="dropdown-item">[[#{itinerari.list.headline}]]</a></li>
                                 </ul>
                             </li>
                         </ul>

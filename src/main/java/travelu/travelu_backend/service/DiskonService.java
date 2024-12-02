@@ -1,12 +1,9 @@
 package travelu.travelu_backend.service;
 
 import jakarta.transaction.Transactional;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import travelu.travelu_backend.domain.Admin;
 import travelu.travelu_backend.domain.Diskon;
 import travelu.travelu_backend.model.DiskonDTO;
 import travelu.travelu_backend.repos.AdminRepository;
@@ -20,14 +17,14 @@ import travelu.travelu_backend.util.NotFoundException;
 public class DiskonService {
 
     private final DiskonRepository diskonRepository;
-    private final AdminRepository adminRepository;
     private final PemesananRepository pemesananRepository;
+    private final AdminRepository adminRepository;
 
     public DiskonService(final DiskonRepository diskonRepository,
-            final AdminRepository adminRepository, final PemesananRepository pemesananRepository) {
+            final PemesananRepository pemesananRepository, final AdminRepository adminRepository) {
         this.diskonRepository = diskonRepository;
-        this.adminRepository = adminRepository;
         this.pemesananRepository = pemesananRepository;
+        this.adminRepository = adminRepository;
     }
 
     public List<DiskonDTO> findAll() {
@@ -62,6 +59,8 @@ public class DiskonService {
         // remove many-to-many relations at owning side
         pemesananRepository.findAllByListDiskon(diskon)
                 .forEach(pemesanan -> pemesanan.getListDiskon().remove(diskon));
+        adminRepository.findAllByListDiskon(diskon)
+                .forEach(admin -> admin.getListDiskon().remove(diskon));
         diskonRepository.delete(diskon);
     }
 
@@ -71,9 +70,6 @@ public class DiskonService {
         diskonDTO.setHarga(diskon.getHarga());
         diskonDTO.setPercent(diskon.getPercent());
         diskonDTO.setCode(diskon.getCode());
-        diskonDTO.setRoleAdmin(diskon.getRoleAdmin().stream()
-                .map(admin -> admin.getId())
-                .toList());
         return diskonDTO;
     }
 
@@ -82,12 +78,6 @@ public class DiskonService {
         diskon.setHarga(diskonDTO.getHarga());
         diskon.setPercent(diskonDTO.getPercent());
         diskon.setCode(diskonDTO.getCode());
-        final List<Admin> roleAdmin = adminRepository.findAllById(
-                diskonDTO.getRoleAdmin() == null ? Collections.emptyList() : diskonDTO.getRoleAdmin());
-        if (roleAdmin.size() != (diskonDTO.getRoleAdmin() == null ? 0 : diskonDTO.getRoleAdmin().size())) {
-            throw new NotFoundException("one of roleAdmin not found");
-        }
-        diskon.setRoleAdmin(new HashSet<>(roleAdmin));
         return diskon;
     }
 

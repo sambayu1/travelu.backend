@@ -1,7 +1,6 @@
 package travelu.travelu_backend.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,11 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import travelu.travelu_backend.domain.Jadwal;
 import travelu.travelu_backend.model.PelangganDTO;
-import travelu.travelu_backend.repos.JadwalRepository;
 import travelu.travelu_backend.service.PelangganService;
-import travelu.travelu_backend.util.CustomCollectors;
 import travelu.travelu_backend.util.ReferencedWarning;
 import travelu.travelu_backend.util.WebUtils;
 
@@ -25,19 +21,9 @@ import travelu.travelu_backend.util.WebUtils;
 public class PelangganController {
 
     private final PelangganService pelangganService;
-    private final JadwalRepository jadwalRepository;
 
-    public PelangganController(final PelangganService pelangganService,
-            final JadwalRepository jadwalRepository) {
+    public PelangganController(final PelangganService pelangganService) {
         this.pelangganService = pelangganService;
-        this.jadwalRepository = jadwalRepository;
-    }
-
-    @ModelAttribute
-    public void prepareContext(final Model model) {
-        model.addAttribute("tanggalJadwalValues", jadwalRepository.findAll(Sort.by("id"))
-                .stream()
-                .collect(CustomCollectors.toSortedMap(Jadwal::getId, Jadwal::getHari)));
     }
 
     @GetMapping

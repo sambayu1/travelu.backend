@@ -18,12 +18,18 @@
                     <thead>
                         <tr>
                             <th scope="col">[[#{admin.id.label}]]</th>
+                            <th scope="col">[[#{admin.name.label}]]</th>
+                            <th scope="col">[[#{admin.email.label}]]</th>
+                            <th scope="col">[[#{admin.password.label}]]</th>
                             <th><!-- --></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="admin : ${admins}">
                             <td>[[${admin.id}]]</td>
+                            <td>[[${admin.name}]]</td>
+                            <td>[[${admin.email}]]</td>
+                            <td>[[${admin.password}]]</td>
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/admins/edit/{id}(id=${admin.id})}" class="btn btn-sm btn-secondary">[[#{admin.list.edit}]]</a>

@@ -1,7 +1,6 @@
 package travelu.travelu_backend.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,11 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import travelu.travelu_backend.domain.Admin;
 import travelu.travelu_backend.model.DiskonDTO;
-import travelu.travelu_backend.repos.AdminRepository;
 import travelu.travelu_backend.service.DiskonService;
-import travelu.travelu_backend.util.CustomCollectors;
 import travelu.travelu_backend.util.WebUtils;
 
 
@@ -24,19 +20,9 @@ import travelu.travelu_backend.util.WebUtils;
 public class DiskonController {
 
     private final DiskonService diskonService;
-    private final AdminRepository adminRepository;
 
-    public DiskonController(final DiskonService diskonService,
-            final AdminRepository adminRepository) {
+    public DiskonController(final DiskonService diskonService) {
         this.diskonService = diskonService;
-        this.adminRepository = adminRepository;
-    }
-
-    @ModelAttribute
-    public void prepareContext(final Model model) {
-        model.addAttribute("roleAdminValues", adminRepository.findAll(Sort.by("id"))
-                .stream()
-                .collect(CustomCollectors.toSortedMap(Admin::getId, Admin::getId)));
     }
 
     @GetMapping

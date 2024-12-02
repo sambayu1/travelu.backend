@@ -63,21 +63,21 @@ public class PembayaranService {
         pembayaranDTO.setId(pembayaran.getId());
         pembayaranDTO.setMetode(pembayaran.getMetode());
         pembayaranDTO.setHarga(pembayaran.getHarga());
-        pembayaranDTO.setInvoicePembayaran(pembayaran.getInvoicePembayaran() == null ? null : pembayaran.getInvoicePembayaran().getNoInvoice());
+        pembayaranDTO.setNoInvoice(pembayaran.getNoInvoice() == null ? null : pembayaran.getNoInvoice().getNoInvoice());
         return pembayaranDTO;
     }
 
     private Pembayaran mapToEntity(final PembayaranDTO pembayaranDTO, final Pembayaran pembayaran) {
         pembayaran.setMetode(pembayaranDTO.getMetode());
         pembayaran.setHarga(pembayaranDTO.getHarga());
-        final InvoicePembayaran invoicePembayaran = pembayaranDTO.getInvoicePembayaran() == null ? null : invoicePembayaranRepository.findById(pembayaranDTO.getInvoicePembayaran())
-                .orElseThrow(() -> new NotFoundException("invoicePembayaran not found"));
-        pembayaran.setInvoicePembayaran(invoicePembayaran);
+        final InvoicePembayaran noInvoice = pembayaranDTO.getNoInvoice() == null ? null : invoicePembayaranRepository.findById(pembayaranDTO.getNoInvoice())
+                .orElseThrow(() -> new NotFoundException("noInvoice not found"));
+        pembayaran.setNoInvoice(noInvoice);
         return pembayaran;
     }
 
-    public boolean invoicePembayaranExists(final Long noInvoice) {
-        return pembayaranRepository.existsByInvoicePembayaranNoInvoice(noInvoice);
+    public boolean noInvoiceExists(final String noInvoice) {
+        return pembayaranRepository.existsByNoInvoiceNoInvoiceIgnoreCase(noInvoice);
     }
 
     public ReferencedWarning getReferencedWarning(final Long id) {
