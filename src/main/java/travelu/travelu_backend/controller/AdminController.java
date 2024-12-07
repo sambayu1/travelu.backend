@@ -59,7 +59,7 @@ public class AdminController {
                 .collect(CustomCollectors.toSortedMap(Csticket::getId, Csticket::getId)));
         model.addAttribute("listJadwalValues", jadwalRepository.findAll(Sort.by("id"))
                 .stream()
-                .collect(CustomCollectors.toSortedMap(Jadwal::getId, Jadwal::getAsal)));
+                .collect(CustomCollectors.toSortedMap(Jadwal::getId, Jadwal::getId)));
     }
 
     @GetMapping

@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div th:replace="~{fragments/forms::globalErrors('pemesanan')}" />
-            <form th:action="${requestUri}" method="post">
+            <form th:action="${requestUri}" method="post" novalidate="">
                 <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='namaCustomer', required=true)}" />
                 <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='diskon', type='textarea')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='pemesanan', field='noTempatduduk', required=true)}" />

@@ -20,10 +20,10 @@
                             <th scope="col">[[#{jadwal.id.label}]]</th>
                             <th scope="col">[[#{jadwal.tanggal.label}]]</th>
                             <th scope="col">[[#{jadwal.waktu.label}]]</th>
-                            <th scope="col">[[#{jadwal.asal.label}]]</th>
-                            <th scope="col">[[#{jadwal.destinasi.label}]]</th>
                             <th scope="col">[[#{jadwal.hargaTiket.label}]]</th>
                             <th scope="col">[[#{jadwal.armadaId.label}]]</th>
+                            <th scope="col">[[#{jadwal.asalCabangId.label}]]</th>
+                            <th scope="col">[[#{jadwal.destinasiCabangId.label}]]</th>
                             <th><!-- --></th>
                         </tr>
                     </thead>
@@ -32,10 +32,10 @@
                             <td>[[${jadwal.id}]]</td>
                             <td>[[${jadwal.tanggal}]]</td>
                             <td>[[${jadwal.waktu}]]</td>
-                            <td>[[${jadwal.asal}]]</td>
-                            <td>[[${jadwal.destinasi}]]</td>
                             <td>[[${jadwal.hargaTiket}]]</td>
                             <td>[[${jadwal.armadaId}]]</td>
+                            <td>[[${jadwal.asalCabangId}]]</td>
+                            <td>[[${jadwal.destinasiCabangId}]]</td>
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/jadwals/edit/{id}(id=${jadwal.id})}" class="btn btn-sm btn-secondary">[[#{jadwal.list.edit}]]</a>

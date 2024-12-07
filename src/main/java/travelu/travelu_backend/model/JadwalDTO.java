@@ -2,7 +2,6 @@ package travelu.travelu_backend.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import lombok.Getter;
@@ -23,18 +22,14 @@ public class JadwalDTO {
     private LocalTime waktu;
 
     @NotNull
-    @Size(max = 255)
-    private String asal;
-
-    @NotNull
-    @Size(max = 255)
-    private String destinasi;
-
-    @NotNull
     private Integer hargaTiket;
 
     @NotNull
     @JadwalArmadaIdUnique
     private Long armadaId;
+
+    private Long asalCabangId;
+
+    private Long destinasiCabangId;
 
 }

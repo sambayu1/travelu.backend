@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${JDBC_DATABASE_URL:jdbc:mysql://localhost:3306/travelu-backend?serverTimezone=UTC}
-    username: ${JDBC_DATABASE_USERNAME:root}
-    password: ${JDBC_DATABASE_PASSWORD:<<YOUR_PASSWORD>>}
+    url: jdbc:mysql://localhost:3306/db_travelu?serverTimezone=UTC
+    username: root
+    password: ''
     hikari:
       connection-timeout: 30000
       maximum-pool-size: 10
@@ -22,9 +22,6 @@ spring:
       date: yyyy-MM-dd
       date-time: yyyy-MM-dd'T'HH:mm:ss
       time: HH:mm:ss
-  docker:
-    compose:
-      lifecycle-management: start-only
 error:
   handling:
     http-status-in-json-response: true

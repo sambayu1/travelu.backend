@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div th:replace="~{fragments/forms::globalErrors('bannerImage')}" />
-            <form th:action="${requestUri}" method="post">
+            <form th:action="${requestUri}" method="post" novalidate="">
                 <div th:replace="~{fragments/forms::inputRow(object='bannerImage', field='name')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='bannerImage', field='img')}" />
                 <input type="submit" th:value="#{bannerImage.add.headline}" class="btn btn-primary mt-4" />

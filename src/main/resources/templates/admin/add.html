@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div th:replace="~{fragments/forms::globalErrors('admin')}" />
-            <form th:action="${requestUri}" method="post">
+            <form th:action="${requestUri}" method="post" novalidate="">
                 <div th:replace="~{fragments/forms::inputRow(object='admin', field='name', required=true)}" />
                 <div th:replace="~{fragments/forms::inputRow(object='admin', field='email', required=true)}" />
                 <div th:replace="~{fragments/forms::inputRow(object='admin', field='password', required=true)}" />

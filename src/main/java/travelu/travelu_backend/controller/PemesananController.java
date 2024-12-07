@@ -68,7 +68,7 @@ public class PemesananController {
                 .collect(CustomCollectors.toSortedMap(Diskon::getId, Diskon::getNama)));
         model.addAttribute("jadwalIdValues", jadwalRepository.findAll(Sort.by("id"))
                 .stream()
-                .collect(CustomCollectors.toSortedMap(Jadwal::getId, Jadwal::getAsal)));
+                .collect(CustomCollectors.toSortedMap(Jadwal::getId, Jadwal::getId)));
     }
 
     @GetMapping

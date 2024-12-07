@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import travelu.travelu_backend.domain.Armada;
+import travelu.travelu_backend.domain.Cabang;
 import travelu.travelu_backend.model.JadwalDTO;
 import travelu.travelu_backend.repos.ArmadaRepository;
+import travelu.travelu_backend.repos.CabangRepository;
 import travelu.travelu_backend.service.JadwalService;
 import travelu.travelu_backend.util.CustomCollectors;
 import travelu.travelu_backend.util.ReferencedWarning;
@@ -26,11 +28,13 @@ public class JadwalController {
 
     private final JadwalService jadwalService;
     private final ArmadaRepository armadaRepository;
+    private final CabangRepository cabangRepository;
 
     public JadwalController(final JadwalService jadwalService,
-            final ArmadaRepository armadaRepository) {
+            final ArmadaRepository armadaRepository, final CabangRepository cabangRepository) {
         this.jadwalService = jadwalService;
         this.armadaRepository = armadaRepository;
+        this.cabangRepository = cabangRepository;
     }
 
     @ModelAttribute
@@ -38,6 +42,12 @@ public class JadwalController {
         model.addAttribute("armadaIdValues", armadaRepository.findAll(Sort.by("id"))
                 .stream()
                 .collect(CustomCollectors.toSortedMap(Armada::getId, Armada::getPlatNom)));
+        model.addAttribute("asalCabangIdValues", cabangRepository.findAll(Sort.by("id"))
+                .stream()
+                .collect(CustomCollectors.toSortedMap(Cabang::getId, Cabang::getId)));
+        model.addAttribute("destinasiCabangIdValues", cabangRepository.findAll(Sort.by("id"))
+                .stream()
+                .collect(CustomCollectors.toSortedMap(Cabang::getId, Cabang::getId)));
     }
 
     @GetMapping

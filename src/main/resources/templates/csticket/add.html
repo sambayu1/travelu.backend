@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div th:replace="~{fragments/forms::globalErrors('csticket')}" />
-            <form th:action="${requestUri}" method="post">
+            <form th:action="${requestUri}" method="post" novalidate="">
                 <div th:replace="~{fragments/forms::inputRow(object='csticket', field='rating', required=true, type='number')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='csticket', field='content', required=true, type='textarea')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='csticket', field='status', required=true, type='number')}" />

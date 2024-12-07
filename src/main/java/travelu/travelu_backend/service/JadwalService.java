@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import travelu.travelu_backend.domain.Armada;
+import travelu.travelu_backend.domain.Cabang;
 import travelu.travelu_backend.domain.Jadwal;
 import travelu.travelu_backend.domain.Pemesanan;
 import travelu.travelu_backend.model.JadwalDTO;
 import travelu.travelu_backend.repos.AdminRepository;
 import travelu.travelu_backend.repos.ArmadaRepository;
+import travelu.travelu_backend.repos.CabangRepository;
 import travelu.travelu_backend.repos.ItinerariRepository;
 import travelu.travelu_backend.repos.JadwalRepository;
 import travelu.travelu_backend.repos.PemesananRepository;
@@ -23,16 +25,18 @@ public class JadwalService {
 
     private final JadwalRepository jadwalRepository;
     private final ArmadaRepository armadaRepository;
+    private final CabangRepository cabangRepository;
     private final AdminRepository adminRepository;
     private final ItinerariRepository itinerariRepository;
     private final PemesananRepository pemesananRepository;
 
     public JadwalService(final JadwalRepository jadwalRepository,
-            final ArmadaRepository armadaRepository, final AdminRepository adminRepository,
-            final ItinerariRepository itinerariRepository,
+            final ArmadaRepository armadaRepository, final CabangRepository cabangRepository,
+            final AdminRepository adminRepository, final ItinerariRepository itinerariRepository,
             final PemesananRepository pemesananRepository) {
         this.jadwalRepository = jadwalRepository;
         this.armadaRepository = armadaRepository;
+        this.cabangRepository = cabangRepository;
         this.adminRepository = adminRepository;
         this.itinerariRepository = itinerariRepository;
         this.pemesananRepository = pemesananRepository;
@@ -79,22 +83,26 @@ public class JadwalService {
         jadwalDTO.setId(jadwal.getId());
         jadwalDTO.setTanggal(jadwal.getTanggal());
         jadwalDTO.setWaktu(jadwal.getWaktu());
-        jadwalDTO.setAsal(jadwal.getAsal());
-        jadwalDTO.setDestinasi(jadwal.getDestinasi());
         jadwalDTO.setHargaTiket(jadwal.getHargaTiket());
         jadwalDTO.setArmadaId(jadwal.getArmadaId() == null ? null : jadwal.getArmadaId().getId());
+        jadwalDTO.setAsalCabangId(jadwal.getAsalCabangId() == null ? null : jadwal.getAsalCabangId().getId());
+        jadwalDTO.setDestinasiCabangId(jadwal.getDestinasiCabangId() == null ? null : jadwal.getDestinasiCabangId().getId());
         return jadwalDTO;
     }
 
     private Jadwal mapToEntity(final JadwalDTO jadwalDTO, final Jadwal jadwal) {
         jadwal.setTanggal(jadwalDTO.getTanggal());
         jadwal.setWaktu(jadwalDTO.getWaktu());
-        jadwal.setAsal(jadwalDTO.getAsal());
-        jadwal.setDestinasi(jadwalDTO.getDestinasi());
         jadwal.setHargaTiket(jadwalDTO.getHargaTiket());
         final Armada armadaId = jadwalDTO.getArmadaId() == null ? null : armadaRepository.findById(jadwalDTO.getArmadaId())
                 .orElseThrow(() -> new NotFoundException("armadaId not found"));
         jadwal.setArmadaId(armadaId);
+        final Cabang asalCabangId = jadwalDTO.getAsalCabangId() == null ? null : cabangRepository.findById(jadwalDTO.getAsalCabangId())
+                .orElseThrow(() -> new NotFoundException("asalCabangId not found"));
+        jadwal.setAsalCabangId(asalCabangId);
+        final Cabang destinasiCabangId = jadwalDTO.getDestinasiCabangId() == null ? null : cabangRepository.findById(jadwalDTO.getDestinasiCabangId())
+                .orElseThrow(() -> new NotFoundException("destinasiCabangId not found"));
+        jadwal.setDestinasiCabangId(destinasiCabangId);
         return jadwal;
     }
 
