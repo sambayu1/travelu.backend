@@ -26,6 +26,9 @@ public class PelangganDTO {
 
     private String role;
 
+
+    private String status;
+
     @NotNull
     private String noTelp;
 

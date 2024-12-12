@@ -16,8 +16,12 @@ public class Pelanggan extends User {
     @Column(nullable = false, columnDefinition = "longtext")
     private String noTelp;
 
+    private String status;
+
+
     @OneToMany(mappedBy = "pelangganId")
     private Set<Pemesanan> listPemesanan;
+
 
     @OneToMany(mappedBy = "pelangganId")
     private Set<Csticket> listComplain;

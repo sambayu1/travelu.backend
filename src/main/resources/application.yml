@@ -1,4 +1,15 @@
 spring:
+  mail:
+    host: localhost
+    port: 8025
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
   datasource:
     url: jdbc:mysql://localhost:3306/db_travelu?serverTimezone=UTC
     username: root

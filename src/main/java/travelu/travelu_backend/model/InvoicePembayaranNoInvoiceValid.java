@@ -27,7 +27,8 @@ import travelu.travelu_backend.service.InvoicePembayaranService;
 @Constraint(
         validatedBy = InvoicePembayaranNoInvoiceValid.InvoicePembayaranNoInvoiceValidValidator.class
 )
-public @interface InvoicePembayaranNoInvoiceValid {
+public @interface
+InvoicePembayaranNoInvoiceValid {
 
     String message() default "";
 
