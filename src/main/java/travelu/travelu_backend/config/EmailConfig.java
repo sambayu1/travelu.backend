@@ -14,7 +14,7 @@ public class EmailConfig {
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("localhost");
-        mailSender.setPort(8025);
+        mailSender.setPort(1025);
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.smtp.auth", false);

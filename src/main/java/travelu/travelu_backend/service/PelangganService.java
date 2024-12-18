@@ -85,7 +85,7 @@ public class PelangganService {
         // Use JavaMail to send the email
         final Properties props = new Properties();
         props.put("mail.smtp.host", "localhost");
-        props.put("mail.smtp.port", "8025");
+        props.put("mail.smtp.port", "1025");
         props.put("mail.smtp.auth", "false");
         props.put("mail.smtp.starttls.enable", "false");
 
@@ -119,7 +119,8 @@ public class PelangganService {
         pelangganDTO.setId(pelanggan.getId());
         pelangganDTO.setName(pelanggan.getName());
         pelangganDTO.setEmail(pelanggan.getEmail());
-        pelangganDTO.setPassword(pelanggan.getPassword());
+        String hashedPassword = (pelanggan.getPassword());
+        pelangganDTO.setPassword(hashedPassword);
         pelangganDTO.setRole(pelanggan.getRole());
         pelangganDTO.setNoTelp(pelanggan.getNoTelp());
         pelangganDTO.setStatus(pelanggan.getStatus());
@@ -129,7 +130,8 @@ public class PelangganService {
     private Pelanggan mapToEntity(final PelangganDTO pelangganDTO, final Pelanggan pelanggan) {
         pelanggan.setName(pelangganDTO.getName());
         pelanggan.setEmail(pelangganDTO.getEmail());
-        pelanggan.setPassword(pelangganDTO.getPassword());
+        String hashedPassword = (pelangganDTO.getPassword());
+        pelanggan.setPassword(hashedPassword);
         pelanggan.setRole(pelangganDTO.getRole());
         pelanggan.setNoTelp(pelangganDTO.getNoTelp());
         pelanggan.setStatus(pelangganDTO.getStatus());
@@ -155,4 +157,11 @@ public class PelangganService {
         return null;
     }
 
+    public void updateStatus(String email, String status) {
+        Pelanggan pelanggan = pelangganRepository.findByEmail(email);
+        if (pelanggan != null) {
+            pelanggan.setStatus(status);
+            pelangganRepository.save(pelanggan);
+        }
+    }
 }
